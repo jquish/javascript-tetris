@@ -1,11 +1,15 @@
 var blocks = new Array(20);
 var model = new Array(20);
 
-var piece = new Array(4);
+// piece[0]-piece[3] are block positions, piece[4] is piece type
+var piece = new Array(5);
 var oldPos = new Array(4);
 
 var display;
 var speed = 1500;
+
+var type;
+var colors = ['-', 'i', 'j', 'l', 'o', 's', 'z', 't'];
 
 window.onload = function() {
     
@@ -18,7 +22,7 @@ window.onload = function() {
 function start() {
     
     piece[0] = [-1, 5];
-    newPiece(type = Math.floor(Math.random() * 7), piece[0]);
+    newPiece();
     
     display = setInterval(play, speed);  
 }
@@ -101,7 +105,7 @@ function checkOverlap() {
         if (piece[i][0] >= 20) return true;
         
 //        check active blocks against locked blocks
-        if (model[piece[i][0]][piece[i][1]] == "1") return true;
+        if (model[piece[i][0]][piece[i][1]] != 0) return true;
         
 //        check active blocks against sides
         if (piece[i][1] < 0 || piece[i][1] > 9) return true;
@@ -120,7 +124,7 @@ function clearPiece() {
 function updatePos() {
     for (var i = 0; i < 4; i++) 
         if (piece[i][0] >= 0 && piece[i][0] <= 20)
-            model[piece[i][0]][piece[i][1]] = 1;
+            model[piece[i][0]][piece[i][1]] = piece[4];
 }
     
 // called from play()
@@ -150,9 +154,9 @@ function checkRows() {
     
     for (var i = 19; i >= 0; i--) {
         for (var j = 0; j < 10; j++)
-            if (model[i][j] == 1) row_count++;
+            if (model[i][j] != 0) row_count++;
         if (row_count == 0) break;
-        if (row_count == 10) rows.push(i);
+        if (row_count >= 10) rows.push(i);
         row_count = 0;
     }
     
@@ -190,44 +194,51 @@ function printGrid() {
     
     for (var i = 0; i < 20; i++) {
         for (var j = 0; j < 10; j++) {
-            if (model[i][j] == "1") {
-                blocks[i][j].style.display = "block";
-            } else {
+            
+            blocks[i][j].classList.remove('i', 'l', 'j', 'o', 's', 'z', 't');
+            
+            if (model[i][j] == 0) {
                 blocks[i][j].style.display = "none";
+            } else {
+                blocks[i][j].style.display = "block";
+                blocks[i][j].classList.add(colors[model[i][j]]);
             }
         }
     }
 }
 
-function newPiece(type, center) {
+function newPiece() {
     
-    if (type == 0) { 
+    piece[4] = 1 + Math.floor(Math.random() * 7);
+    console.log(piece[4]);
+    
+    if (piece[4] == 1) { 
         // I-block
         piece[1] = [piece[0][0] + 1, piece[0][1]];
         piece[2] = [piece[0][0] - 1, piece[0][1]];
         piece[3] = [piece[0][0] - 2, piece[0][1]];
         
-    } else if (type == 1) { 
+    } else if (piece[4] == 2) { 
         // J-block
         piece[1] = [piece[0][0], piece[0][1] - 1];
         piece[2] = [piece[0][0] - 1, piece[0][1]];
         piece[3] = [piece[0][0] - 2, piece[0][1]];
-    } else if (type == 2) { 
+    } else if (piece[4] == 3) { 
         // L-block
         piece[1] = [piece[0][0], piece[0][1] + 1];
         piece[2] = [piece[0][0] - 1, piece[0][1]];
         piece[3] = [piece[0][0] - 2, piece[0][1]];
-    } else if (type == 3) { 
+    } else if (piece[4] == 4) { 
         // O-block
         piece[1] = [piece[0][0], piece[0][1] - 1];
         piece[2] = [piece[0][0] - 1, piece[0][1]];
         piece[3] = [piece[0][0] - 1, piece[0][1] - 1];
-    } else if (type == 4) { 
+    } else if (piece[4] == 5) { 
         // S-block
         piece[1] = [piece[0][0] - 1, piece[0][1]];
         piece[2] = [piece[0][0], piece[0][1] - 1];
         piece[3] = [piece[0][0] - 1, piece[0][1] + 1];
-    } else if (type == 5) { 
+    } else if (piece[4] == 6) { 
         // Z-block
         piece[1] = [piece[0][0], piece[0][1] + 1];
         piece[2] = [piece[0][0] - 1, piece[0][1]];

@@ -9,10 +9,38 @@
 
 .block {
     border: 1px solid #FFFFFF;
-    background: black;
+    background: gray;
     width: 23px;
     height: 23px;
     position: absolute;
     float: left;
     margin: 0px;
+}
+
+.i {
+    background: #d6cbcd;
+}
+
+.j {
+    background: #c6b5b7;
+}
+
+.l {
+    background: #b69fa0;
+}
+
+.o {
+    background: #a6898a;
+}
+
+.s {
+    background: #967374;
+}
+
+.z {
+    background: #865d5d;
+}
+
+.t {
+    background: #764747;
 }
