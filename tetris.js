@@ -210,7 +210,6 @@ function printGrid() {
 function newPiece() {
     
     piece[4] = 1 + Math.floor(Math.random() * 7);
-    console.log(piece[4]);
     
     if (piece[4] == 1) { 
         // I-block
@@ -261,6 +260,7 @@ function resetModel() {
 
 function setUp() {
     
+    title();
     var grid = document.getElementById("grid");
     
     for (var i = 0; i < 20; i++) {
@@ -280,13 +280,37 @@ function setUp() {
 
             var block = document.createElement("div");
             block.classList.add("block");
-            block.setAttribute("id", col + ":" + row);
             grid.appendChild(block);
 
             block.style.left = col * 25 + "px";
             block.style.top = row * 25 + "px";
             
             blocks[i][j] = block;
+        }
+    }
+}
+
+function title() {
+    var area = document.getElementById("title");
+    
+    var rows = new Array(5);
+    rows[0] = [0, 1, 2, 4, 5, 7, 8, 9, 11, 12, 15, 18, 19];
+    rows[1] = [1, 4, 8, 11, 13, 15, 17];
+    rows[2] = [1, 4, 5, 8, 11, 12, 15, 18];
+    rows[3] = [1, 4, 8, 11, 13, 15, 19];
+    rows[4] = [1, 4, 5, 8, 11, 13, 15, 17, 18];
+    
+    for (var i = 0; i < 5; i++) {
+        for (var j = 0; j < 20; j++) {
+            if (rows[i].includes(j)) {
+            var block = document.createElement("div");
+                block.classList.add(colors[i+2]);
+                area.appendChild(block);
+
+                block.style.left = j * 14 + "px";
+                block.style.top = i * 14 + "px";
+            }
+    
         }
     }
 }
