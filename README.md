@@ -1,2 +1,2 @@
 # javascript-tetris
-Tetris game I made for a Web Development course, written in javascript
+Tetris game I made for a web development course, written in javascript

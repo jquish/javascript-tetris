@@ -1,5 +1,5 @@
 body {
-    background: #dbd7d7;
+    background: #edebeb;
 }
 
 #title {
@@ -13,19 +13,23 @@ body {
 }
 
 #title div {
-/*    border: 1px solid white;*/
-/*    background: #764747;*/
     height: 12px;
     width: 14px;
     position: absolute;
     float: left;
 }
 
+#game {
+    margin-left: auto;
+    margin-right: auto;
+    width: 450px;
+}
+
 #grid {
     width: 250px;
     height: 500px;
     background: white;
-    border: 2px solid #edebeb;
+    border: 2px solid #dbd7d7;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -41,30 +45,38 @@ body {
     margin: 0px;
 }
 
-.i {
-    background: #d6cbcd;
+#buttons {
+    float: right;
 }
 
-.j {
-    background: #c6b5b7;
+button {
+    display: block;
+    background: #edebeb;
+    height: 30px;
+    width: 90px;
+    margin: 4px;
+    border: 2px solid #dbd7d7;
+    border-radius: 2px;
+    color: #c6b5b7;
+    font-size: 10pt;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
-.l {
-    background: #b69fa0;
+button:focus {
+    outline: none;
 }
 
-.o {
-    background: #a6898a;
-}
+.i { background: #d6cbcd; }
 
-.s {
-    background: #967374;
-}
+.j { background: #c6b5b7; }
 
-.z {
-    background: #865d5d;
-}
+.l { background: #b69fa0; }
 
-.t {
-    background: #764747;
-}
+.o { background: #a6898a; }
+
+.s { background: #967374; }
+
+.z { background: #865d5d; }
+
+.t { background: #764747; }
