@@ -30,12 +30,7 @@ function start() {
 function play() {
     
     document.getElementById("pause").onclick = pause;
-    document.getElementById("reset").onclick = function() {
-        document.getElementById("reset").blur();
-        clearInterval(display);
-        resetModel();
-        start();
-    };
+    document.getElementById("reset").onclick = reset;
     
     document.onkeydown = function(event) {
         if (!paused){
@@ -102,6 +97,22 @@ function pause() {
     
     document.getElementById("pause").blur();
     return;
+}
+    
+function reset() {
+    
+    document.getElementById("reset").blur();
+    
+    if (paused) {
+        paused = !paused;
+        document.getElementById("pause").innerHTML = 'PAUSE'
+        document.getElementById("pause").style.color = '#c6b5b7';
+        document.getElementById("pause").style.borderColor = '#dbd7d7';
+    }
+    
+    clearInterval(display);
+    resetModel();
+    start();
 }
     
 // returns true if piece is successfully moved, otherwise returns false
