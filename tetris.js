@@ -11,8 +11,9 @@ var speed = 1500;
 var type;
 var colors = ['-', 'i', 'j', 'l', 'o', 's', 'z', 't'];
 
+var paused = false;
+
 window.onload = function() {
-    
     setUp();
     printGrid();
     start(); 
@@ -20,7 +21,6 @@ window.onload = function() {
 }
 
 function start() {
-    
     piece[0] = [-1, 5];
     newPiece();
     
@@ -28,51 +28,80 @@ function start() {
 }
 
 function play() {
-
+    
+    document.getElementById("pause").onclick = pause;
+    document.getElementById("reset").onclick = function() {
+        document.getElementById("reset").blur();
+        clearInterval(display);
+        resetModel();
+        start();
+    };
+    
     document.onkeydown = function(event) {
-        switch (event.keyCode) {
-            case 39:
-                move(0, 1);
-                break;
-            case 38:
-                rotatePiece()
-                break;
-            case 37: 
-                move(0, -1);
-                break;
-            case 40:
-                move(1, 0);
-                break;
-            case 32: 
-                clearInterval(display); 
-                while (move(1, 0) == true) continue;
-                checkRows();
-                
-                if (!gameOver()) {
-                    start();
-                } else {
-                    updatePos();
-                    printGrid();
-                    resetModel();
-                    start();
-                }
+        if (!paused){
+            switch (event.keyCode) {
+                case 39:
+                    move(0, 1);
+                    break;
+                case 38:
+                    rotatePiece()
+                    break;
+                case 37: 
+                    move(0, -1);
+                    break;
+                case 40:
+                    move(1, 0);
+                    break;
+                case 32: 
+                    clearInterval(display); 
+                    while (move(1, 0) == true) continue;
+                    checkRows();
+
+                    if (!gameOver()) {
+                        start();
+                    } else {
+                        updatePos();
+                        printGrid();
+                        resetModel();
+                        start();
+                    }
+            }
         }
     };
+    
+    if (!paused) {
+        if (move(1, 0) == false) {
+            clearInterval(display);
+            checkRows();
 
-    if (move(1, 0) == false) {
-        clearInterval(display);
-        checkRows();
+            if (!gameOver()) {
+                start(); 
 
-        if (!gameOver()) {
-            start(); 
-            
-        } else {
-            updatePos();
-            printGrid();
-            resetModel();
-            start();
+            } else {
+                updatePos();
+                printGrid();
+                resetModel();
+                start();
+            }
         }
     }
+}
+
+function pause() {
+    
+    paused = !paused;
+    if (paused) {
+        document.getElementById("pause").innerHTML = 'RESUME';
+        document.getElementById("pause").style.color = '#a6898a';
+        document.getElementById("pause").style.borderColor = '#a6898a';
+    } else {
+        document.getElementById("pause").innerHTML = 'PAUSE'
+        document.getElementById("pause").style.color = '#c6b5b7';
+        document.getElementById("pause").style.borderColor = '#dbd7d7';
+    }
+    
+    document.getElementById("pause").blur();
+    return;
 }
     
 // returns true if piece is successfully moved, otherwise returns false
